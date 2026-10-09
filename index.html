@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layan's Little Universe</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;overflow-x:hidden;
+ background:linear-gradient(180deg,#17172f,#39305b,#856b9e);
+ color:#fff5fc;font-family:Georgia,serif;
+ text-align:center
+}
+.sky{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;color:#fff6d9;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.25;transform:scale(.7)}}
+main{position:relative;z-index:1;min-height:100vh;
+ display:flex;flex-direction:column;align-items:center;
+ justify-content:center;padding:28px 20px}
+.moon{font-size:82px;filter:drop-shadow(0 0 25px #f9d9ff)}
+h1{font-size:clamp(32px,8vw,48px);font-weight:normal;margin:15px 0}
+p{font-size:17px;line-height:1.8;max-width:330px}
+button{border:1px solid #ffe5f5;background:#ffffff18;
+ color:white;padding:13px 27px;border-radius:30px;
+ font-size:16px;margin-top:20px;cursor:pointer}
+button:active{transform:scale(.97)}
+#next{display:none}
+.bunny{font-size:56px;margin:18px}
+</style>
+</head>
+<body>
+<div class="sky" id="sky"></div>
+<main>
+ <section id="welcome">
+  <div class="moon">☾</div>
+  <h1>Layan's Little Universe</h1>
+  <p>A tiny universe, made just for you.<br>
+  A little place where you can simply be you.</p>
+  <div class="bunny">🐇</div>
+  <button onclick="enterWorld()">Enter my universe ✦</button>
+ </section>
+ <section id="next">
+  <div class="moon">🌙</div>
+  <h1>Hi, Layan ♡</h1>
+  <p>Somewhere among all the stars,<br>
+  there is a little universe that reminds me of you.</p>
+  <p>Pick a star to discover a little message.</p>
+  <div style="font-size:42px;cursor:pointer" onclick="message()">⭐ ✨ ⭐</div>
+  <p id="message"></p>
+  <button onclick="birthday()">A little surprise ♡</button>
+  <p id="birthday"></p>
+ </section>
+</main>
+<script>
+const sky=document.getElementById('sky');
+for(let i=0;i<65;i++){
+ const s=document.createElement('span');
+ s.className='star';s.textContent=Math.random()>.5?'✦':'·';
+ s.style.left=Math.random()*100+'%';
+ s.style.top=Math.random()*100+'%';
+ s.style.fontSize=(8+Math.random()*16)+'px';
+ s.style.animationDelay=Math.random()*3+'s';
+ sky.appendChild(s);
+}
+function enterWorld(){
+ document.getElementById('welcome').style.display='none';
+ document.getElementById('next').style.display='block';
+}
+const notes=[
+"You make ordinary moments feel special. ♡",
+"I hope this little universe makes you smile.",
+"You deserve softness, happiness, and lovely days.",
+"Some things are special simply because they are yours. ✦",
+"I'm glad our paths crossed."
+];
+let count=0;
+function message(){
+ document.getElementById('message').textContent=notes[count%notes.length];
+ count++;
+}
+function birthday(){
+ document.getElementById('birthday').textContent=
+ "Happy Birthday, Layan! ♡ May your new year be full of little joys, lovely surprises, and stars that always find you.";
+}
+</script>
+</body>
+</html>
