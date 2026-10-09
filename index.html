@@ -4,85 +4,494 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layan's Little Universe</title>
+<meta name="theme-color" content="#211b3d">
+<title>Layan's Little Universe ♡</title>
+
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;min-height:100vh;overflow-x:hidden;
- background:linear-gradient(180deg,#17172f,#39305b,#856b9e);
- color:#fff5fc;font-family:Georgia,serif;
- text-align:center
+:root {
+  --pink: #ffcde8;
+  --lavender: #d9c8ff;
+  --cream: #fff5e9;
+  --night: #211b3d;
 }
-.sky{position:fixed;inset:0;pointer-events:none;overflow:hidden}
-.star{position:absolute;color:#fff6d9;animation:twinkle 2s infinite alternate}
-@keyframes twinkle{to{opacity:.25;transform:scale(.7)}}
-main{position:relative;z-index:1;min-height:100vh;
- display:flex;flex-direction:column;align-items:center;
- justify-content:center;padding:28px 20px}
-.moon{font-size:82px;filter:drop-shadow(0 0 25px #f9d9ff)}
-h1{font-size:clamp(32px,8vw,48px);font-weight:normal;margin:15px 0}
-p{font-size:17px;line-height:1.8;max-width:330px}
-button{border:1px solid #ffe5f5;background:#ffffff18;
- color:white;padding:13px 27px;border-radius:30px;
- font-size:16px;margin-top:20px;cursor:pointer}
-button:active{transform:scale(.97)}
-#next{display:none}
-.bunny{font-size:56px;margin:18px}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--cream);
+  font-family: Georgia, serif;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 100%, #725582 0%, transparent 55%),
+    linear-gradient(180deg, #17162f, #302348 55%, #594365);
+  overflow-x: hidden;
+}
+button { font: inherit; }
+#sky {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.star {
+  position: absolute;
+  color: #fff0c9;
+  animation: twinkle 2.5s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: .35; transform: scale(.8); }
+  to { opacity: 1; transform: scale(1.15); }
+}
+.cloud {
+  position: fixed;
+  bottom: -70px;
+  width: 230px;
+  height: 110px;
+  border-radius: 50%;
+  background: #c6a5d6;
+  opacity: .10;
+  filter: blur(20px);
+  animation: float 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.cloud.one { left: -70px; }
+.cloud.two { right: -80px; animation-delay: -5s; }
+@keyframes float {
+  to { transform: translate(20px,-25px); }
+}
+main {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 25px 18px 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.screen {
+  width: 100%;
+  max-width: 480px;
+  animation: appear .65s ease both;
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hidden { display: none !important; }
+.moon {
+  font-size: 86px;
+  line-height: 1.3;
+  filter: drop-shadow(0 0 22px #edcaff);
+  animation: moonGlow 3s ease-in-out infinite alternate;
+}
+@keyframes moonGlow {
+  to { filter: drop-shadow(0 0 35px #f6d9ff); }
+}
+h1 {
+  color: #ffe2f3;
+  font-size: clamp(30px, 8vw, 43px);
+  line-height: 1.2;
+  font-weight: normal;
+  margin: 16px 0;
+}
+h2 {
+  font-size: 27px;
+  font-weight: normal;
+  color: #ffe2f3;
+}
+p {
+  line-height: 1.85;
+  font-size: 16px;
+  color: #fff1fa;
+}
+.small {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #e5c9f6;
+}
+button {
+  color: #fff8ff;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,224,248,.65);
+  padding: 13px 21px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+button:active {
+  transform: scale(.96);
+  background: rgba(255,205,232,.23);
+}
+.primary {
+  background: linear-gradient(120deg,#b995cf,#d99ec7);
+  color: #291d3b;
+  border: none;
+  box-shadow: 0 5px 25px #d7a4e433;
+  font-weight: bold;
+}
+button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+.bunny {
+  display: inline-block;
+  font-size: 68px;
+  cursor: pointer;
+  animation: bunnyHop 2.8s ease-in-out infinite;
+  user-select: none;
+}
+@keyframes bunnyHop {
+  0%, 80%, 100% { transform: translateY(0); }
+  88% { transform: translateY(-12px); }
+}
+.hint {
+  color: #e8d3f5;
+  font-size: 13px;
+}
+.door-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 13px;
+  margin-top: 25px;
+}
+.door {
+  width: 100%;
+  min-height: 94px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 17px;
+  border-radius: 20px;
+  text-align: left;
+  background: linear-gradient(120deg,#ffffff12,#f5c7ed0b);
+  border: 1px solid #f5d9f344;
+}
+.door .emoji { font-size: 36px; }
+.door strong {
+  display: block;
+  color: #ffe1f3;
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+.door small { color: #e4d2ed; font-size: 13px; }
+.card {
+  border: 1px solid #f5d9f344;
+  background: #ffffff0c;
+  border-radius: 24px;
+  padding: 22px 17px;
+  margin: 18px 0;
+  backdrop-filter: blur(8px);
+}
+.back {
+  margin-top: 22px;
+  background: transparent;
+  border-color: #ffffff55;
+}
+.big-emoji { font-size: 76px; margin: 12px 0; }
+.message {
+  min-height: 65px;
+  color: #ffe0f2;
+  line-height: 1.9;
+}
+.wish-stars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin: 25px 0;
+}
+.wish-star {
+  font-size: 37px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  animation: twinkle 1.8s infinite alternate;
+}
+.cake {
+  font-size: 92px;
+  margin: 5px 0;
+  filter: drop-shadow(0 0 15px #f7c1e944);
+}
+.candle-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 10px 0 22px;
+}
+.candle {
+  font-size: 38px;
+  border: none;
+  padding: 3px;
+  background: transparent;
+}
+.footer {
+  font-size: 12px;
+  color: #d9c3e7;
+  margin-top: 35px;
+}
+@media (min-width: 600px) {
+  .door-grid { grid-template-columns: 1fr; }
+  main { padding-top: 35px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="sky" id="sky"></div>
+<div id="sky"></div>
+<div class="cloud one"></div>
+<div class="cloud two"></div>
+
 <main>
- <section id="welcome">
-  <div class="moon">☾</div>
-  <h1>Layan's Little Universe</h1>
-  <p>A tiny universe, made just for you.<br>
-  A little place where you can simply be you.</p>
-  <div class="bunny">🐇</div>
-  <button onclick="enterWorld()">Enter my universe ✦</button>
- </section>
- <section id="next">
-  <div class="moon">🌙</div>
-  <h1>Hi, Layan ♡</h1>
-  <p>Somewhere among all the stars,<br>
-  there is a little universe that reminds me of you.</p>
-  <p>Pick a star to discover a little message.</p>
-  <div style="font-size:42px;cursor:pointer" onclick="message()">⭐ ✨ ⭐</div>
-  <p id="message"></p>
-  <button onclick="birthday()">A little surprise ♡</button>
-  <p id="birthday"></p>
- </section>
+  <!-- WELCOME -->
+  <section id="welcome" class="screen">
+    <div class="small">A LITTLE WORLD MADE WITH LOVE</div>
+    <div class="moon">☾</div>
+    <h1>Layan's Little Universe</h1>
+    <p>
+      Somewhere among the stars,<br>
+      a tiny universe is waiting just for you.
+    </p>
+    <div class="bunny" onclick="bunnyHello()" aria-label="Say hello to the bunny">🐇</div>
+    <p id="bunnyHello" class="hint">A little bunny is waiting to meet you.</p>
+    <button class="primary" onclick="showScreen('home')">Enter my universe ✦</button>
+    <div class="footer">made especially for Layan ♡</div>
+  </section>
+
+  <!-- HOME -->
+  <section id="home" class="screen hidden">
+    <div class="moon">🌙</div>
+    <div class="small">WELCOME, LITTLE STAR</div>
+    <h1>Hi, Layan ♡</h1>
+    <p>Your little universe is full of tiny things to discover.</p>
+
+    <div class="door-grid">
+      <button class="door" onclick="showScreen('moonRoom')">
+        <span class="emoji">🌙</span>
+        <span><strong>Moon Room</strong><small>A quiet little place beneath the moon</small></span>
+      </button>
+
+      <button class="door" onclick="showScreen('bunnyGarden')">
+        <span class="emoji">🐇</span>
+        <span><strong>Bunny Garden</strong><small>Meet your little fluffy friends</small></span>
+      </button>
+
+      <button class="door" onclick="showScreen('wishSky')">
+        <span class="emoji">⭐</span>
+        <span><strong>Wishful Sky</strong><small>Choose a star and make a wish</small></span>
+      </button>
+
+      <button class="door" onclick="showScreen('birthdayRoom')">
+        <span class="emoji">🎂</span>
+        <span><strong>Birthday Room</strong><small>A little birthday surprise awaits</small></span>
+      </button>
+    </div>
+    <div class="footer">take your time, there's no rush ♡</div>
+  </section>
+
+  <!-- MOON ROOM -->
+  <section id="moonRoom" class="screen hidden">
+    <div class="moon">🌙</div>
+    <h1>Moon Room</h1>
+    <p>A soft little corner where the world gets quiet.</p>
+    <div class="card">
+      <div class="big-emoji">☁️</div>
+      <p class="message" id="moonMessage">
+        Even the moon needs a quiet night sometimes.
+      </p>
+      <button onclick="moonNote()">A little moon note ✦</button>
+    </div>
+    <button class="back" onclick="showScreen('home')">← Back to my universe</button>
+  </section>
+
+  <!-- BUNNY GARDEN -->
+  <section id="bunnyGarden" class="screen hidden">
+    <div class="big-emoji">🌷</div>
+    <h1>Bunny Garden</h1>
+    <p>A tiny garden full of fluff, flowers, and happy little hops.</p>
+    <div class="card">
+      <div class="bunny" onclick="petBunny()">🐇</div>
+      <p id="bunnyMessage" class="message">Tap your bunny to say hello!</p>
+      <button onclick="petBunny()">Give bunny a little pat ♡</button>
+    </div>
+    <button class="back" onclick="showScreen('home')">← Back to my universe</button>
+  </section>
+
+  <!-- WISHING SKY -->
+  <section id="wishSky" class="screen hidden">
+    <div class="moon">✨</div>
+    <h1>Wishful Sky</h1>
+    <p>Choose a star. Each one holds a little wish for you.</p>
+    <div class="wish-stars">
+      <button class="wish-star" onclick="pickWish(0)" aria-label="Choose star one">⭐</button>
+      <button class="wish-star" onclick="pickWish(1)" aria-label="Choose star two">✦</button>
+      <button class="wish-star" onclick="pickWish(2)" aria-label="Choose star three">🌟</button>
+      <button class="wish-star" onclick="pickWish(3)" aria-label="Choose star four">✨</button>
+      <button class="wish-star" onclick="pickWish(4)" aria-label="Choose star five">⭐</button>
+    </div>
+    <div class="card">
+      <p id="wishMessage" class="message">Your star is waiting for you ♡</p>
+    </div>
+    <button class="back" onclick="showScreen('home')">← Back to my universe</button>
+  </section>
+
+  <!-- BIRTHDAY ROOM -->
+  <section id="birthdayRoom" class="screen hidden">
+    <div class="small">A SPECIAL LITTLE DAY</div>
+    <h1>Happy Birthday, Layan ♡</h1>
+    <p>Make a little wish, then tap each candle to blow it out.</p>
+
+    <div class="card">
+      <div class="candle-row" aria-label="Birthday candles">
+        <button class="candle" onclick="blowCandle(0)" aria-label="Blow out candle one">🕯️</button>
+        <button class="candle" onclick="blowCandle(1)" aria-label="Blow out candle two">🕯️</button>
+        <button class="candle" onclick="blowCandle(2)" aria-label="Blow out candle three">🕯️</button>
+      </div>
+      <div class="cake">🎂</div>
+      <p id="candleHint" class="hint">3 little candles are still glowing.</p>
+      <p id="birthdayMessage" class="message"></p>
+    </div>
+
+    <button class="back" onclick="showScreen('home')">← Back to my universe</button>
+  </section>
 </main>
+
 <script>
-const sky=document.getElementById('sky');
-for(let i=0;i<65;i++){
- const s=document.createElement('span');
- s.className='star';s.textContent=Math.random()>.5?'✦':'·';
- s.style.left=Math.random()*100+'%';
- s.style.top=Math.random()*100+'%';
- s.style.fontSize=(8+Math.random()*16)+'px';
- s.style.animationDelay=Math.random()*3+'s';
- sky.appendChild(s);
+// Create a sky full of tiny stars.
+const sky = document.getElementById('sky');
+for (let i = 0; i < 65; i++) {
+  const star = document.createElement('span');
+  star.className = 'star';
+  star.textContent = Math.random() > 0.5 ? '✦' : '·';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.fontSize = (8 + Math.random() * 15) + 'px';
+  star.style.animationDelay = Math.random() * 3 + 's';
+  sky.appendChild(star);
 }
-function enterWorld(){
- document.getElementById('welcome').style.display='none';
- document.getElementById('next').style.display='block';
+
+// Navigate between rooms.
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.add('hidden');
+  });
+  const next = document.getElementById(id);
+  next.classList.remove('hidden');
+  next.style.animation = 'none';
+  void next.offsetWidth;
+  next.style.animation = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-const notes=[
-"You make ordinary moments feel special. ♡",
-"I hope this little universe makes you smile.",
-"You deserve softness, happiness, and lovely days.",
-"Some things are special simply because they are yours. ✦",
-"I'm glad our paths crossed."
+
+// Welcome bunny.
+function bunnyHello() {
+  document.getElementById('bunnyHello').textContent =
+    'Boop! The bunny says: welcome to your universe, Layan ♡';
+}
+
+// Moon room notes.
+const moonNotes = [
+  'I hope life gives you quiet nights and gentle mornings. ♡',
+  'You deserve a world that feels soft and safe.',
+  'Even on cloudy nights, the stars are still there.',
+  'A tiny reminder: you deserve happiness, just as you are.',
+  'May your days have little moments worth smiling about. ✦'
 ];
-let count=0;
-function message(){
- document.getElementById('message').textContent=notes[count%notes.length];
- count++;
+let moonIndex = 0;
+function moonNote() {
+  document.getElementById('moonMessage').textContent =
+    moonNotes[moonIndex % moonNotes.length];
+  moonIndex++;
 }
-function birthday(){
- document.getElementById('birthday').textContent=
- "Happy Birthday, Layan! ♡ May your new year be full of little joys, lovely surprises, and stars that always find you.";
+
+// Bunny garden interactions.
+const bunnyNotes = [
+  'The bunny likes you already. 🐇',
+  'Bunny says: you deserve extra-soft blankets and sweet dreams.',
+  'Hop hop! A tiny flower for you. 🌷',
+  'Your bunny has decided you are its favourite human. ♡',
+  'A little nose boop, just for you. ✨'
+];
+let bunnyIndex = 0;
+function petBunny() {
+  document.getElementById('bunnyMessage').textContent =
+    bunnyNotes[bunnyIndex % bunnyNotes.length];
+  bunnyIndex++;
+}
+
+// Wishing stars.
+const wishes = [
+  'May you find happiness in the little things. ♡',
+  'May your heart always have room for new dreams.',
+  'May you meet more days that make you excited to wake up.',
+  'May you always have something lovely to look forward to. ✨',
+  'May this new year of your life bring you gentle surprises.'
+];
+function pickWish(index) {
+  document.getElementById('wishMessage').textContent = wishes[index];
+}
+
+// Birthday candles.
+const candles = [true, true, true];
+const candleButtons = document.querySelectorAll('.candle');
+
+function blowCandle(index) {
+  if (!candles[index]) return;
+  candles[index] = false;
+  candleButtons[index].textContent = '♨️';
+  candleButtons[index].style.opacity = '.55';
+
+  const remaining = candles.filter(Boolean).length;
+  const hint = document.getElementById('candleHint');
+  const message = document.getElementById('birthdayMessage');
+
+  if (remaining > 0) {
+    hint.textContent = remaining + (remaining === 1
+      ? ' little candle is still glowing.'
+      : ' little candles are still glowing.');
+    message.textContent = 'One little wish at a time. ♡';
+  } else {
+    hint.textContent = 'All the candles are out. ✨';
+    message.textContent =
+      'Happy Birthday, Layan! ♡ I hope this new year brings you joy, little adventures, lovely surprises, and countless reasons to smile. I made this tiny universe just for you, so you could have a little place that is yours to explore. Make a wish, little star. 🌙';
+    launchConfetti();
+  }
+}
+
+// Small celebration made from text stars; no external images or libraries.
+function launchConfetti() {
+  for (let i = 0; i < 24; i++) {
+    const bit = document.createElement('span');
+    bit.textContent = ['✦', '♡', '✨', '⭐'][i % 4];
+    bit.style.position = 'fixed';
+    bit.style.left = Math.random() * 100 + 'vw';
+    bit.style.top = '-25px';
+    bit.style.fontSize = (14 + Math.random() * 16) + 'px';
+    bit.style.color = ['#ffd6ed', '#e5d4ff', '#fff0c9'][i % 3];
+    bit.style.zIndex = '5';
+    bit.style.pointerEvents = 'none';
+    document.body.appendChild(bit);
+
+    const drift = (Math.random() - .5) * 180;
+    const duration = 1800 + Math.random() * 1800;
+    const animation = bit.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${drift}px,105vh) rotate(500deg)`, opacity: 0 }
+    ], { duration, easing: 'ease-in', fill: 'forwards' });
+
+    animation.onfinish = () => bit.remove();
+  }
 }
 </script>
 </body>
